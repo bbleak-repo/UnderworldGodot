@@ -847,11 +847,16 @@ namespace Underworld
         /// <returns></returns>
         public static string GetOrdinal(int number)
         {
-            if (number > 21)
+            // English ordinal suffix. Numbers ending in 11/12/13 (e.g. 11th, 12th,
+            // 13th, 111th) always take "th"; otherwise the last digit decides.
+            // The old logic used a `> 21` cutoff which incorrectly produced "21th",
+            // "31th", etc. (player level can reach these in UW2).
+            int mod100 = number % 100;
+            if (mod100 >= 11 && mod100 <= 13)
             {
-                number = number % 10;
+                return "th";
             }
-            switch (number)
+            switch (number % 10)
             {
                 case 1:
                     return "st";
