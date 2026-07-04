@@ -737,11 +737,11 @@ namespace Underworld
             // recursively add linked/next objects
             if (oldObj.link != 0 && oldObj.is_quant == 0)
             {
-                if (oldObj.item_id == 288)//a_spell. stop here.
+                if (oldObj.item_id == 288)//a_spell
                 {
-                    //do nothing
-                    Debug.Print("picked up a_spell");
-                    //TODO add handling of traps/triggers
+                    // Spell objects: move the linked trap/enchantment to inventory
+                    // without recursing further (the trap defines the spell effect)
+                    oldObj.link = (short)MoveObjectToInventoryData(oldObj.link);
                 }
                 else
                 {
