@@ -375,7 +375,7 @@ namespace Underworld
             else
             {
                 //a miss
-                //TODO check a global variable that is related to missile impacts. if set do not play sound.
+                // Vanilla checks a global flag to suppress duplicate missile impact sounds (not yet identified)
                 UWsoundeffects.PlaySoundEffectAtObject(effectNo: 0xA, obj: AttackingCharacter, volDelta: 0);
             }
         }
