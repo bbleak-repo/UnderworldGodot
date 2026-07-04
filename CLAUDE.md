@@ -16,8 +16,10 @@ with a lot of game logic implemented").
    "better" version. This is a preservation project. Cross-reference the disassembly notes at
    https://github.com/hankmorgan/UWReverseEngineering before changing game-logic constants.
 2. **No AI-generated *assets*.** The project's AI Policy forbids AI-upscaled art / AI-generated
-   game artifacts. AI-*assisted code* is fine (contributors already use it), but never commit
-   generated textures, sprites, sounds, or models.
+   game artifacts (to preserve the vanilla look & feel). The policy is *silent* on AI-*assisted
+   code* — it addresses assets only — so writing code with AI isn't prohibited, but never commit
+   generated textures, sprites, sounds, or models. (Note: this is an MIT-licensed project; the AI
+   policy is the maintainer's preference for upstream, not a licence term binding a personal fork.)
 3. **UW1 vs UW2 differences are everywhere.** Tons of logic branches on the active game. Before
    editing gameplay code, check whether it's UW1-only, UW2-only, or shared. The backlog is full
    of "check if this differs for UW1/UW2" notes — respect them.
