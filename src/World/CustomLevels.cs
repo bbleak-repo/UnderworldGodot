@@ -184,7 +184,7 @@ namespace Underworld
                 // Torch on hall wall
                 new TemplateObject { ItemId = 0x0091, TileX = 5, TileY = 54, PosX = 3, PosY = 3 },
                 // Healing potion near column
-                new TemplateObject { ItemId = 0x0100, TileX = 12, TileY = 49, PosX = 3, PosY = 3 },
+                new TemplateObject { ItemId = 0x0110, TileX = 12, TileY = 49, PosX = 3, PosY = 3 },
 
                 // --- Cistern room (Y=54-57, X=25-35) water area ---
                 // Gem hidden by water edge
@@ -401,16 +401,16 @@ namespace Underworld
 
                 // --- Ghoul warrens loot ---
                 new TemplateObject { ItemId = 0x0091, TileX = 5, TileY = 48, PosX = 3, PosY = 3 },   // torch
-                new TemplateObject { ItemId = 0x0100, TileX = 18, TileY = 44, PosX = 3, PosY = 3 },  // healing potion
+                new TemplateObject { ItemId = 0x0110, TileX = 18, TileY = 44, PosX = 3, PosY = 3 },  // healing potion
 
                 // --- Prison block ---
                 new TemplateObject { ItemId = 0x00D0, TileX = 8, TileY = 36, PosX = 3, PosY = 3 },   // key (for doors)
                 new TemplateObject { ItemId = 0x0110, TileX = 6, TileY = 34, PosX = 3, PosY = 3 },   // scroll
 
                 // --- Pre-boss healing stash (Y=38, X=28-30) ---
-                new TemplateObject { ItemId = 0x0100, TileX = 33, TileY = 38, PosX = 3, PosY = 3 },  // healing potion
+                new TemplateObject { ItemId = 0x0110, TileX = 33, TileY = 38, PosX = 3, PosY = 3 },  // healing potion
                 new TemplateObject { ItemId = 0x0101, TileX = 32, TileY = 38, PosX = 5, PosY = 3 },  // cure potion
-                new TemplateObject { ItemId = 0x0100, TileX = 34, TileY = 36, PosX = 3, PosY = 3 },  // healing potion
+                new TemplateObject { ItemId = 0x0110, TileX = 34, TileY = 36, PosX = 3, PosY = 3 },  // healing potion
                 new TemplateObject { ItemId = 0x00C1, TileX = 36, TileY = 36, PosX = 3, PosY = 3 },  // food
 
                 // --- Throne Room rewards (on the raised platform) ---
@@ -558,7 +558,7 @@ namespace Underworld
 
                 // --- West platform towers (Y=46-51, height 5 areas) ---
                 new TemplateObject { ItemId = 0x00A8, TileX = 9, TileY = 50, PosX = 3, PosY = 3 },   // gem on west tower
-                new TemplateObject { ItemId = 0x0100, TileX = 10, TileY = 48, PosX = 3, PosY = 3 },  // potion on west tower
+                new TemplateObject { ItemId = 0x0110, TileX = 10, TileY = 48, PosX = 3, PosY = 3 },  // potion on west tower
 
                 // --- East platform towers (height 5 areas) ---
                 new TemplateObject { ItemId = 0x00A0, TileX = 32, TileY = 50, PosX = 3, PosY = 3, Quantity = 30 }, // gold
@@ -570,7 +570,7 @@ namespace Underworld
                 new TemplateObject { ItemId = 0x0092, TileX = 21, TileY = 45, PosX = 3, PosY = 3 },  // torch
 
                 // --- Side chambers at height 3 (west and east, Y=33-43) ---
-                new TemplateObject { ItemId = 0x0100, TileX = 11, TileY = 43, PosX = 3, PosY = 3 },  // potion west upper
+                new TemplateObject { ItemId = 0x0110, TileX = 11, TileY = 43, PosX = 3, PosY = 3 },  // potion west upper
                 new TemplateObject { ItemId = 0x0014, TileX = 11, TileY = 41, PosX = 3, PosY = 3 },  // armor west
                 new TemplateObject { ItemId = 0x00A0, TileX = 35, TileY = 41, PosX = 3, PosY = 3, Quantity = 25 }, // gold east
                 new TemplateObject { ItemId = 0x0101, TileX = 35, TileY = 37, PosX = 3, PosY = 3 },  // cure potion east lower
@@ -758,20 +758,20 @@ namespace Underworld
                 new TemplateObject { ItemId = 0x0004, TileX = 15, TileY = 59, PosX = 3, PosY = 3 },  // sword
                 new TemplateObject { ItemId = 0x0010, TileX = 17, TileY = 59, PosX = 3, PosY = 3 },  // shield
                 new TemplateObject { ItemId = 0x0090, TileX = 14, TileY = 60, PosX = 3, PosY = 3 },  // torch
-                new TemplateObject { ItemId = 0x0100, TileX = 18, TileY = 60, PosX = 3, PosY = 3 },  // healing potion
+                new TemplateObject { ItemId = 0x0110, TileX = 18, TileY = 60, PosX = 3, PosY = 3 },  // healing potion
 
                 // --- Rest area 1 (Y=43-44, between Arena 1 and 2) ---
-                new TemplateObject { ItemId = 0x0100, TileX = 12, TileY = 44, PosX = 3, PosY = 3 },  // healing potion
+                new TemplateObject { ItemId = 0x0110, TileX = 12, TileY = 44, PosX = 3, PosY = 3 },  // healing potion
                 new TemplateObject { ItemId = 0x00C0, TileX = 13, TileY = 43, PosX = 3, PosY = 3 },  // food
 
                 // --- Rest area 2 (Y=29-31, between Arena 2 and 3) ---
-                new TemplateObject { ItemId = 0x0100, TileX = 8, TileY = 30, PosX = 3, PosY = 3 },   // healing potion
+                new TemplateObject { ItemId = 0x0110, TileX = 8, TileY = 30, PosX = 3, PosY = 3 },   // healing potion
                 new TemplateObject { ItemId = 0x0101, TileX = 10, TileY = 30, PosX = 3, PosY = 3 },  // cure potion
                 new TemplateObject { ItemId = 0x00C0, TileX = 12, TileY = 30, PosX = 3, PosY = 3 },  // food
 
                 // --- Rest area 3 (Y=13-15, between Arena 3 and 4) ---
-                new TemplateObject { ItemId = 0x0100, TileX = 7, TileY = 14, PosX = 3, PosY = 3 },   // healing potion
-                new TemplateObject { ItemId = 0x0100, TileX = 9, TileY = 14, PosX = 3, PosY = 3 },   // healing potion
+                new TemplateObject { ItemId = 0x0110, TileX = 7, TileY = 14, PosX = 3, PosY = 3 },   // healing potion
+                new TemplateObject { ItemId = 0x0110, TileX = 9, TileY = 14, PosX = 3, PosY = 3 },   // healing potion
                 new TemplateObject { ItemId = 0x0101, TileX = 10, TileY = 14, PosX = 3, PosY = 3 },  // cure potion
                 new TemplateObject { ItemId = 0x00C1, TileX = 11, TileY = 14, PosX = 3, PosY = 3 },  // food
 
@@ -935,7 +935,7 @@ namespace Underworld
 
                 // --- West Wing workshops (Y=37-48) ---
                 // Potions on shelves (height 1 shelves)
-                new TemplateObject { ItemId = 0x0100, TileX = 7, TileY = 47, PosX = 3, PosY = 3 },   // potion
+                new TemplateObject { ItemId = 0x0110, TileX = 7, TileY = 47, PosX = 3, PosY = 3 },   // potion
                 new TemplateObject { ItemId = 0x0101, TileX = 8, TileY = 47, PosX = 3, PosY = 3 },   // potion
                 new TemplateObject { ItemId = 0x0102, TileX = 9, TileY = 47, PosX = 3, PosY = 3 },   // potion
                 // Workbench items (height 5)
@@ -944,7 +944,7 @@ namespace Underworld
 
                 // --- East Wing workshops (Y=37-48) ---
                 new TemplateObject { ItemId = 0x0103, TileX = 30, TileY = 47, PosX = 3, PosY = 3 },  // potion
-                new TemplateObject { ItemId = 0x0100, TileX = 31, TileY = 47, PosX = 3, PosY = 3 },  // potion
+                new TemplateObject { ItemId = 0x0110, TileX = 31, TileY = 47, PosX = 3, PosY = 3 },  // potion
                 new TemplateObject { ItemId = 0x0112, TileX = 30, TileY = 41, PosX = 3, PosY = 3 },  // scroll
                 new TemplateObject { ItemId = 0x00A8, TileX = 30, TileY = 40, PosX = 3, PosY = 3 },  // gem
 
