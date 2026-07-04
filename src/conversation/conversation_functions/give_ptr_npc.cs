@@ -22,53 +22,51 @@ namespace Underworld
                 }                
             }
             //if not found try and find directly in player inventory and take qty of that object
-            Debug.Print("UNTESTED give_ptr_npc code!");
             var ptrObject = UWTileMap.current_tilemap.LevelObjects[ObjectIndex];
-            if (ptrObject!=null)
+            if (ptrObject != null)
             {
-                if (qty<=0)
-                    {
-                        //give all
-                        var link = talker.link;
-                        ptrObject.next = talker.link; //assumes no existing next???
-                        talker.link = ptrObject.index;
-                    }
+                if (qty <= 0)
+                {
+                    //give all -- move the entire object to the NPC's inventory chain
+                    ptrObject.next = talker.link;
+                    talker.link = ptrObject.index;
+                }
                 else
-                {                   
-                    if (ptrObject.ObjectQuantity<qty)
+                {
+                    if (ptrObject.ObjectQuantity > qty)
                     {
-                         //give qty of object.
+                        //give partial qty -- clone a subset and give the clone to the NPC
                         var clone = ObjectCreator.spawnObjectInTile(
-                            itemid: ptrObject.item_id, 
-                            tileX: 99, tileY: 99, 
-                            xpos: ptrObject.xpos, ypos: ptrObject.ypos, zpos: ptrObject.zpos, 
+                            itemid: ptrObject.item_id,
+                            tileX: 99, tileY: 99,
+                            xpos: ptrObject.xpos, ypos: ptrObject.ypos, zpos: ptrObject.zpos,
                             WhichList: ObjectFreeLists.ObjectListType.StaticList);
 
-                        clone.is_quant = ptrObject.is_quant;
-                        clone.flags_full = ptrObject.flags_full;
-                        clone.quality = ptrObject.quality;
-                        clone.owner = ptrObject.owner;                        
-                        clone.link = qty;
-                        ptrObject.link -= qty;
+                        if (clone != null)
+                        {
+                            clone.is_quant = ptrObject.is_quant;
+                            clone.flags_full = ptrObject.flags_full;
+                            clone.quality = ptrObject.quality;
+                            clone.owner = ptrObject.owner;
+                            clone.link = (short)qty;
+                            ptrObject.link -= (short)qty;
 
-                        var link = talker.link;
-                        clone.next = talker.link; //assumes no existing next???
-                        talker.link = clone.index;
+                            clone.next = talker.link;
+                            talker.link = clone.index;
+                        }
                     }
                     else
                     {
-                        //give all
-                        var link = talker.link;
-                        ptrObject.next = talker.link; //assumes no existing next???
+                        //give all -- player has qty or fewer, give the whole stack
+                        ptrObject.next = talker.link;
                         talker.link = ptrObject.index;
                     }
-                }   
-                
+                }
+                result_register = 1;
+                return;
             }
 
-            Debug.Print("Incomplete behaviour. give_ptr_npc has not found object and needs to search for qty");
-            
-            result_register = 0;//nothing traded            
+            result_register = 0;//nothing traded
         }
     }//end class
 }//end namespace
