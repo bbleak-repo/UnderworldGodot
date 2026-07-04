@@ -236,7 +236,12 @@ namespace Underworld
                                 triggerY: triggerY,
                                 objList: objList);
 
-                            Debug.Print("TODO RemoveThisTriggerChain");
+                            // Remove single-use trigger after firing (flags==0)
+                            ObjectRemover_OLD.DeleteObjectFromTile_DEPRECIATED(
+                                tileX: triggerX,
+                                tileY: triggerY,
+                                indexToDelete: ObjectToTrigger.index,
+                                RemoveFromWorld: true);
                         }
                         else
                         {
