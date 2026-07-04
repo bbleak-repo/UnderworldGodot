@@ -62,7 +62,7 @@ namespace Underworld
                                 {//tmap
                                     if (obj.owner == ToChange)
                                     {
-                                        if ((Rng.r.Next(0x10) < changeProbability) || (true))
+                                        if (Rng.r.Next(0x10) < changeProbability)
                                         {
                                             Debug.Print($"Changing Tmap {obj.index} at {x} {y} to use texture {newTexture}");
                                             obj.owner = (short)newTexture;

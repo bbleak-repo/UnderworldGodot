@@ -402,7 +402,7 @@ namespace Underworld
                                     }
                                     else
                                     {
-                                        if (((Rng.r.Next(0, 0x7fff) & 0x3) != 0) || (true))
+                                        if ((Rng.r.Next(0, 0x7fff) & 0x3) != 0)
                                         {
                                             animo.SpawnAnimoAtTarget(objToDestroy, 8, 0, objToDestroy.tileX, objToDestroy.tileY);
                                             Debris = 0xD6;
@@ -410,7 +410,19 @@ namespace Underworld
 
                                         if ((objToDestroy.is_quant == 0) && (objToDestroy.link > 0))
                                         {
-                                            Debug.Print("TODO Clear object chain");
+                                            // Walk the linked chain and free each object
+                                            int chainIdx = objToDestroy.link;
+                                            int safetyCount = 0;
+                                            while (chainIdx > 0 && chainIdx < 1024 && safetyCount < 64)
+                                            {
+                                                var chainObj = objList[chainIdx];
+                                                if (chainObj == null) break;
+                                                int nextInChain = chainObj.next;
+                                                ObjectFreeLists.ReleaseFreeObject(chainObj);
+                                                chainIdx = nextInChain;
+                                                safetyCount++;
+                                            }
+                                            objToDestroy.link = 0;
                                         }
                                     }
                                 }
