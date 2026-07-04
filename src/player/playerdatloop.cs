@@ -245,8 +245,11 @@ namespace Underworld
                             }//end every 5 mins update
                             if ((playerUpdateCounter % 60) == 0)//every 20 mins
                             {
-                                Debug.Print("TODO Update 'day' value");
-                                Debug.Print("TODO something with scd.ark");
+                                // Process SCD.ARK scheduled events every 20 game-minutes (UW2)
+                                if (_RES == GAME_UW2)
+                                {
+                                    scd.ProcessSCDArk(1);
+                                }
                                 playerUpdateCounter = 0;
                             }//end every 20 mins update
 
@@ -802,8 +805,7 @@ namespace Underworld
         /// </summary>
         public static void UpdateAutomap()
         {
-            return;
-            //depending on light level. need to confirm if below math is okay
+            // Mark nearby tiles as visited and award exploration XP
             NoOfTilesDiscovered = 0;
             var range = 1 + (lightlevel / 2);
             automap.MarkRangeOfTilesVisited(

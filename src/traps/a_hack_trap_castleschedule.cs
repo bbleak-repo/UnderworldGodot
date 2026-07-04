@@ -112,12 +112,16 @@ namespace Underworld
             critter.owner = newY;
             critter.npc_goal = (byte)npc.npc_goals.npc_goal_goto_1;
 
-            //TODO: Check if current location is in front of player
+            // Skip move if player is close enough to see the teleport (prevents pop-in)
+            var po = playerdat.playerObject;
+            int distCurrent = System.Math.Abs(po.tileX - critter.tileX) + System.Math.Abs(po.tileY - critter.tileY);
+            int distDest = System.Math.Abs(po.tileX - newX) + System.Math.Abs(po.tileY - newY);
+            if (distCurrent <= 3 || distDest <= 3)
+            {
+                // Player is too close to source or destination -- defer the move
+                return;
+            }
 
-            //TODO: Check if destination is in front of player.
-
-            //TODO: If player cannot see destination or current location. Do the move.
-            
             npc.moveNPCToTile(
                 critter: critter,
                 destTileX: newX, destTileY: newY);

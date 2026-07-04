@@ -380,12 +380,12 @@ namespace Underworld
                         {
                             if (objToDestroy.OneF0Class == 8)
                             {//containers
-                                Debug.Print("TODO Cull Container behaviour to be implemented");
-                                //Spill container.
+                                // Spill contents and detach linked chain before debris conversion
                                 if (WorldObject)
                                 {
                                     container.SpillWorldContainer(objToDestroy);
                                 }
+                                objToDestroy.link = 0; // detach any remaining linked objects
                             }
                             else
                             {

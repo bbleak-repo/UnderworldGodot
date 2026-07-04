@@ -476,7 +476,19 @@ namespace Underworld
                 playerObj.npc_xhome = (short)(playerMotionParams.x_0 >> 8);
                 playerObj.npc_yhome = (short)(playerMotionParams.y_2 >> 8);
 
-                //TODO Check if player is no longer lost
+                // Check if player is no longer lost (re-enable automap on entering a known tile)
+                if ((!playerdat.AutomapEnabled) && (_RES == GAME_UW2))
+                {
+                    if (UWTileMap.ValidTile(newTileX, newTileY))
+                    {
+                        if (automap.automaps != null
+                            && automap.automaps[playerdat.dungeon_level - 1] != null
+                            && automap.automaps[playerdat.dungeon_level - 1].tiles[newTileX, newTileY].visited)
+                        {
+                            playerdat.AutomapEnabled = true;
+                        }
+                    }
+                }
 
                 playerdat.PlayerStatusUpdate();//to force lighting refreshes when player has changed tile.
             }
