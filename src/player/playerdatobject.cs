@@ -89,7 +89,7 @@ namespace Underworld
                 }
             }
 
-            //TODO update lighting
+            // Lighting refresh handled by PlayerStatusUpdate() call after PlacePlayerInTile
 
         }
     }//end class

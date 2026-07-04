@@ -330,7 +330,7 @@ namespace Underworld
                 }
                 automapnote.automapsnotes[blockno].notes.Add(currentmapnote);
 
-                //TODO fill out remainer of string with nulls.
+                // Note: null-termination is handled in automapnote.Serialize()
             }
             else
             {
