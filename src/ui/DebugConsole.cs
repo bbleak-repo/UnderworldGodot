@@ -273,6 +273,18 @@ namespace Underworld
                     CmdExportLevel();
                     break;
 
+                case "save":
+                    CmdSave(args);
+                    break;
+
+                case "weather":
+                    CmdWeather(args);
+                    break;
+
+                case "time":
+                    CmdTime(args);
+                    break;
+
                 default:
                     Print($"Unknown command: {command}. Type 'help' for commands.");
                     break;
@@ -349,6 +361,9 @@ namespace Underworld
             Print("rerender - Redraw current level");
             Print("loadlevel <name> - Load custom level");
             Print("exportlevel - Export current as ASCII");
+            Print("save [slot] - Force save (1-4)");
+            Print("weather [light] - Show/set light 0-7");
+            Print("time [hours] - Show/advance time");
             Print("help <cmd> - Detail on a command");
         }
 
@@ -924,6 +939,49 @@ namespace Underworld
             if (UWTileMap.current_tilemap == null) { Print("No level loaded"); return; }
             UWTileMap.RedrawCurrentTileMap();
             Print("Level re-rendered.");
+        }
+
+        private static void CmdSave(string[] args)
+        {
+            int slot = 1;
+            if (args.Length >= 1) int.TryParse(args[0], out slot);
+            if (slot < 1 || slot > 4) { Print("Slot must be 1-4"); return; }
+
+            try
+            {
+                SaveGame.Save(slot, $"Debug save slot {slot}");
+                Print($"Game saved to slot {slot}");
+            }
+            catch (System.Exception ex)
+            {
+                Print($"Save failed: {ex.Message}");
+            }
+        }
+
+        private static void CmdWeather(string[] args)
+        {
+            // Display current game state affecting "weather" (light level, palette)
+            Print($"Light level: {playerdat.lightlevel}");
+            Print($"Palette: {Palette.CurrentPalette}");
+            if (args.Length >= 1 && int.TryParse(args[0], out int newLight))
+            {
+                if (newLight >= 0 && newLight <= 7)
+                {
+                    playerdat.lightlevel = newLight;
+                    Print($"Light level set to {newLight}");
+                }
+            }
+        }
+
+        private static void CmdTime(string[] args)
+        {
+            Print($"Game time: {playerdat.game_time} (day {playerdat.game_days}, hour {playerdat.TwelveHourClock})");
+            if (args.Length >= 1 && int.TryParse(args[0], out int hours))
+            {
+                // Advance time by N hours
+                playerdat.ClockValue += hours * 0xE1000;
+                Print($"Advanced {hours} hours. Now day {playerdat.game_days}, hour {playerdat.TwelveHourClock}");
+            }
         }
 
         private static void CmdLoadCustomLevel(string[] args)
