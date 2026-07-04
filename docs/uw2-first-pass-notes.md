@@ -18,6 +18,8 @@ _Working notes from an AI-assisted pass on the fork. Not upstream canon — scra
 | 1 | `CLAUDE.md` added | docs/setup | n/a |
 | 2 | `GetOrdinal()` teens bug (`21th`→`21st`) | C# logic | ✅ by reasoning (compiles, correct English ordinals) |
 | 3 | `CharLevel` label `11th`→`11t` clip | scene tweak | ⚠️ needs in-engine visual check |
+| 4 | HP/Mana/EXP labels clip at 3 digits (same class) | scene tweak | ⚠️ needs in-engine visual check |
+| 5 | Automap note null-termination (backlog item) | investigation | ✅ already handled by `Serialize()` — no change needed |
 
 ### Detail: the `11th → 11t` bug (backlog "UW2 confirmed bug")
 Root cause is **UI, not logic**. `GetOrdinal(11)` already returns `"th"` correctly. The
