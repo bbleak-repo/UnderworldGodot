@@ -23,11 +23,17 @@ namespace Underworld
 
         static void RemoveObject(uwObject obj, int[] paramsarray)
         {
-            //TODO: there is more logic here including stuff with animation overlays.
             if (UWTileMap.ValidTile(obj.tileX, obj.tileY))
             {
+                // Check if this object has an associated animation overlay and remove it
+                var overlay = AnimationOverlay.FindOverlay(obj.index);
+                if (overlay != null)
+                {
+                    AnimationOverlay.RemoveAnimationOverlay(overlay.link);
+                }
+
                 ObjectRemover_OLD.DeleteObjectFromTile_DEPRECIATED(
-                    tileX: obj.tileX, tileY: obj.tileY, 
+                    tileX: obj.tileX, tileY: obj.tileY,
                     indexToDelete: obj.index);
             }
         }
