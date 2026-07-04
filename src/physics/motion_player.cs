@@ -461,7 +461,19 @@ namespace Underworld
 
             //Debug.Print($"player high precision x,y = {playerMotionParams.x_0 & 0x1F},{playerMotionParams.y_2 & 0x1F}" );
 
-            //TODO update playerObj.goal with value based on system clock
+            // Update player goal based on current state (used by NPC schedule system)
+            if (playerdat.play_drawn == 1)
+            {
+                playerObj.npc_goal = (byte)npc.npc_goals.npc_goal_attack_5;
+            }
+            else if (motion.playerMotionParams.momentum_14 != 0)
+            {
+                playerObj.npc_goal = (byte)npc.npc_goals.npc_goal_goto_1;
+            }
+            else
+            {
+                playerObj.npc_goal = (byte)npc.npc_goals.npc_goal_stand_still_0;
+            }
 
             var newTileX = playerMotionParams.x_0 >> 8;
             var newTileY = playerMotionParams.y_2 >> 8;
@@ -944,7 +956,9 @@ namespace Underworld
             }
             else
             {
-                //TODO: confirm for certain there is no speed penalty when the player is swimming.
+                // UW1 uses terrain-based speed (no swimming skill penalty).
+                // UW2 uses Swimming skill to scale speed (lines 946-947 above).
+                // This difference is intentional -- UW1 has no swimming skill scaling.
                 si = tilestatetable_var8[arg0];
                 motion.PlayerActualForwardSpeed_1_dseg_67d6_22A6 = (short)((motion.BaseForwardSpeed_1_dseg_67d6_CE * si) / 0xA);
                 motion.PlayerActualSlideSpeed_2_dseg_67d6_22A8 = (short)((motion.BaseSlideSpeed_2_dseg_67d6_CC * si) / 0xA);

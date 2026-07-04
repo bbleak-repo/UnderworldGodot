@@ -98,7 +98,7 @@ namespace Underworld
                 for (int i = 1; i <= Lines.GetUpperBound(0); i++)
                 {
                     Lines[i - 1].SetLine(Lines[i].LineText, Lines[i].OptionNo);
-                    //TODO associate option no with a click event index.
+                    // OptionNo is preserved during scroll -- HandleMessageScrollClick reads it
                 }
                 Lines[Rows - 1].SetLine(newText, Option);
             }

@@ -41,8 +41,9 @@ namespace Underworld
                     Debug.Print("Moving an object through a level while holding it! Dropping it there.");
                     var obj = UWTileMap.current_tilemap.LevelObjects[playerdat.ObjectInHand];
 
-                    //drop objects at the player tile so they cannot be taken out of the dream 
-                    //TODO. special case for the telekinesis wand in Scintillus.
+                    //drop objects at the player tile so they cannot be taken out of the dream
+                    // Note: telekinesis wand is handled by academy.RemoveAcademyWand()
+                    // which runs in LevelChangeEventsUW2 on exiting Academy level 43.
                     playerdat.ObjectInHand = -1;
                     uimanager.instance.mousecursor.SetCursorToCursor();
                     var tile = UWTileMap.current_tilemap.Tiles[playerdat.playerObject.tileX, playerdat.playerObject.tileY];
