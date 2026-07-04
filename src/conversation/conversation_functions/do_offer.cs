@@ -45,7 +45,7 @@ namespace Underworld
                     if (evaluation >= TradeThreshold)
                     {//accept offer
                         yield return say_op(YeahWeTrade);
-                        //TODO trade items.
+                        SwapTradedObjects(currentTalker);
                         result_register = 1;
                     }
                     else

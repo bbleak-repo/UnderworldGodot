@@ -423,15 +423,9 @@ namespace Underworld
                                             ? System.IO.File.ReadAllText(descPath)
                                             : $"Save {extra_arg_0}";
                                         int stringId;
-                                        if (UWClass._RES != UWClass.GAME_UW1)
-                                        {
-                                            // UW2 save is unsupported pending an upstream UW2 lev.ark compressor.
-                                            // Writing uncompressed UW2 blocks would fail DOS load (>80 uncompressed
-                                            // blocks crash vanilla UW2.EXE). Until the compressor is ported, refuse.
-                                            GD.PrintErr("UW2 save pending upstream compressor — not yet supported");
-                                            stringId = GameStrings.str_save_game_failed_;
-                                        }
-                                        else
+                                        // UW2 note: saves use uncompressed lev.ark blocks. The port's
+                                        // own loader handles these fine. DOS UW2.EXE would not, but
+                                        // that's not a concern for this Godot recreation.
                                         {
                                             try
                                             {

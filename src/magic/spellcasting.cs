@@ -29,7 +29,16 @@ namespace Underworld
                     return; //no casting in the ethereal void.
                 }
             }
-            //TODO if no magic allow bit return
+            // Check if the caster's tile has the no-magic flag set
+            if (UWTileMap.current_tilemap != null && PlayerCast)
+            {
+                var tile = UWTileMap.current_tilemap.Tiles[tileX, tileY];
+                if (tile != null && tile.noMagic != 0)
+                {
+                    uimanager.AddToMessageScroll(GameStrings.GetString(1, GameStrings.str_the_incantation_failed_));
+                    return;
+                }
+            }
 
             switch (majorclass)
             {
