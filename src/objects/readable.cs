@@ -113,8 +113,11 @@ namespace Underworld
                         {
                             if (ObjectUsed.item_id == 0x139)//map piece
                             {
-                                //TODO
-                                Debug.Print("MAP PIECE LOOKAT");//I think this is already done?
+                                // Display the automap for the current dungeon level
+                                var worldno = _RES == GAME_UW2
+                                    ? worlds.GetWorldNo(playerdat.dungeon_level)
+                                    : 0;
+                                uimanager.DrawAutoMap(playerdat.dungeon_level - 1, worldno);
                             }
                             else
                             {
