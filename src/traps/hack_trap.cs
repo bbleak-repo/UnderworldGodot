@@ -164,10 +164,9 @@ namespace Underworld
                     break;
                 }
                 case 21://Change object zpos
-                        {//used in the tombs?
+                        {//used in the tombs
                         if (_RES==GAME_UW2)
                         {
-                            //TODO
                             a_hack_trap_resetzpos.Activate(trapObj: trapObj, 1);
                             return true;
                         }
