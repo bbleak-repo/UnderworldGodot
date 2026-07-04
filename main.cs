@@ -898,6 +898,10 @@ public partial class main : Node3D
 						MessageDisplay.WaitingForTypedInput = false;
 					}
 				}
+				// Consume all key events during typed input to prevent
+				// propagation to game input handlers (fixes fiddly backspace)
+				GetViewport().SetInputAsHandled();
+				return;
 			}
 		}
 
