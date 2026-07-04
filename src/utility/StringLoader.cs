@@ -784,7 +784,16 @@ namespace Underworld
         /// <returns>The description.</returns>
         /// <param name="index">Index.</param>
         public static string TextureDescription(int index)
-        {//TODO:fix floor and wall naming
+        {
+            // For UW1, floor textures (index >= 210) use reversed string lookup
+            if (_RES != GAME_UW2 && index >= 210)
+            {
+                return GetString(1, str_you_see_) + GetString(10, 510 - index + 210);
+            }
+            if (_RES == GAME_UW2 && index >= 210)
+            {
+                return GetString(1, str_you_see_) + GetString(10, 510 - index);
+            }
             return GetString(1, str_you_see_) + GetString(10, index);
         }
       

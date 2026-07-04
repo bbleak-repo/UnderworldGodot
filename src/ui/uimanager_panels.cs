@@ -110,7 +110,8 @@ namespace Underworld
                         break;
                     }
                 case 1: //switch to runes
-                        //TODO enable rune panel at scale 0,0 to rotate in the oppsite direction.
+                    // Start rune panel at scale 0 so it expands in from the opposite direction
+                    instance.PanelRuneBag.Scale = new Vector2(0, 1);
                     for (int i = 0; i<24;i++)
                     {
                         SetRuneInBag(i, playerdat.GetRune(i));

@@ -29,11 +29,16 @@ namespace Underworld
         public static bridge CreateInstance(Node3D parent, uwObject obj, string name, UWTileMap a_tilemap)
         {
             var b = new bridge(obj);
-            //TODO: some bridges can be invisible. instead of a model with texture do a 3d collider with no texture
             var modelNode = b.Generate3DModel(parent, name);
             modelNode.Rotate(Vector3.Up, (float)Math.PI/2);
             SetModelRotation(parent, b);
             centreInTile(parent, b);
+
+            // Invisible bridges: hide the mesh but keep collision active
+            if (obj.invis == 1)
+            {
+                modelNode.Visible = false;
+            }
             //DisplayModelPoints(b,modelNode);
             //mark bridge on automap
             if (UWTileMap.ValidTile(obj.tileX, obj.tileY))

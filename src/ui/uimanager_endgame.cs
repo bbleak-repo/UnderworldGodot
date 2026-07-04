@@ -108,13 +108,12 @@ namespace Underworld
             var stringBase = GameStrings.str_a_level_; //strings numbers for stats start at different offsets in UW1/UW2
             var statstring = $"{playerdat.CharName}\n{GameStrings.GetString(1, stringBase)}{playerdat.play_level} {playerdat.CharClassName} {GameStrings.GetString(1, stringBase + 1)} {GameStrings.GetString(1, stringBase + 2)}{gamedays}{GameStrings.GetString(1, stringBase + 3)}\n";
 
-            //display attributes vit, mana and exp
-            //TODO figure out a clear way to align these (hopefully without adding more text controls)
-            statstring += $"{GameStrings.GetString(2, 0x11).PadRight(8)}{playerdat.STR.ToString().PadRight(6)}  {GameStrings.GetString(2, 0x14).PadRight(8)}{playerdat.max_hp.ToString().PadRight(6)}";
+            //display attributes, vit, mana and exp in two-column layout
+            statstring += FormatStatPair(GameStrings.GetString(2, 0x11), playerdat.STR, GameStrings.GetString(2, 0x14), playerdat.max_hp);
             statstring += "\n";
-            statstring += $"{GameStrings.GetString(2, 0x12).PadRight(8)}{playerdat.DEX.ToString().PadRight(6)}  {GameStrings.GetString(2, 0x15).PadRight(8)}{playerdat.max_mana.ToString().PadRight(6)}";
+            statstring += FormatStatPair(GameStrings.GetString(2, 0x12), playerdat.DEX, GameStrings.GetString(2, 0x15), playerdat.max_mana);
             statstring += "\n";
-            statstring += $"{GameStrings.GetString(2, 0x13).PadRight(8)}{playerdat.INT.ToString().PadRight(6)}  {GameStrings.GetString(2, 0x16).PadRight(8)}{(playerdat.Exp / 10).ToString().PadRight(6)}";
+            statstring += FormatStatPair(GameStrings.GetString(2, 0x13), playerdat.INT, GameStrings.GetString(2, 0x16), playerdat.Exp / 10);
             statstring += "\n";
 
             //display skills. use a loop for simplicity
@@ -143,6 +142,14 @@ namespace Underworld
             Debug.Print(statstring);
             instance.EndGameStats.Text = $"[center][color={fontcolour}]{statstring}[/color][/center]";
             uimanager.EnableDisable(instance.PanelEndGame, true);
+        }
+
+        /// <summary>
+        /// Formats a pair of stat label+value entries with consistent column widths.
+        /// </summary>
+        static string FormatStatPair(string label1, int value1, string label2, int value2)
+        {
+            return $"{label1.PadRight(12)}{value1,-4}  {label2.PadRight(12)}{value2,-4}";
         }
 
         private void _on_endgame_gui_input(InputEvent @event)
