@@ -236,12 +236,22 @@ namespace Underworld
                 );
         }
 
+        /// <summary>
+        /// Cooldown timer to prevent rapid-fire spell casting. Set to a value in
+        /// seconds after each cast; decremented by the game clock. Vanilla UW has
+        /// an implicit delay because of the rune-panel UI -- in this port the
+        /// keyboard shortcut bypasses that, so an explicit cooldown is needed.
+        /// </summary>
+        public static double SpellCooldownTimer = 0;
+
         public static void CastRunicSpell()
         {
+            if (SpellCooldownTimer > 0) { return; } // still on cooldown
+
             var spell = CurrentSpell();
             if (spell != null)
             {
-                if ((spell.TestIfPlayerCanCastSpell()) | (true))//force this to be true for test and development
+                if (spell.TestIfPlayerCanCastSpell())
                 {
                     //apply mana cost
                     playerdat.play_mana = System.Math.Max(0, playerdat.play_mana - spell.ManaCost);
@@ -280,6 +290,9 @@ namespace Underworld
                                 CastOnEquip:false);
                             break;
                     }
+
+                    // Apply cooldown to prevent rapid casting (approximately 1 second)
+                    SpellCooldownTimer = 1.0;
                 }
             }
             else

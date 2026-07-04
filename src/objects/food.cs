@@ -223,7 +223,7 @@ namespace Underworld
                 case playerdat.SkillCheckResult.CritSucess:
                     {//The drink makes you feel a little better for now.
                         uimanager.AddToMessageScroll(GameStrings.GetString(1, 0x101));
-                        playerdat.play_hp += 2;
+                        playerdat.play_hp = System.Math.Min(playerdat.max_hp, playerdat.play_hp + 2);
                         break;
                     }
                 case playerdat.SkillCheckResult.Fail:

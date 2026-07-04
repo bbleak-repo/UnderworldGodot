@@ -269,6 +269,51 @@ namespace Underworld
         }
 
         /// <summary>
+        /// Alternate constructor that loads from a pre-built byte buffer
+        /// instead of reading from LEV.ARK. This is the key seam for custom levels.
+        /// </summary>
+        /// <param name="levelNo">Level slot number</param>
+        /// <param name="levelData">Raw 0x8000-byte level buffer</param>
+        /// <param name="textureData">Optional texture map data (generates defaults if null)</param>
+        public UWTileMap(int levelNo, byte[] levelData, byte[] textureData = null)
+        {
+            thisLevelNo = levelNo;
+
+            lev_ark_block = new UWBlock
+            {
+                Data = levelData,
+                DataLen = levelData.Length,
+                Address = 0
+            };
+
+            if (textureData != null)
+            {
+                tex_ark_block = new UWBlock
+                {
+                    Data = textureData,
+                    DataLen = textureData.Length,
+                    Address = 0
+                };
+            }
+            else
+            {
+                tex_ark_block = new UWBlock
+                {
+                    Data = LevelBufferGenerator.CreateDefaultTextureMap(),
+                    DataLen = 0,
+                    Address = 0
+                };
+            }
+
+            ovl_ark_block = new UWBlock
+            {
+                Data = new byte[0],
+                DataLen = 0,
+                Address = 0
+            };
+        }
+
+        /// <summary>
         /// Loads the tilemap for the specified level number (dungeon_level-1)
         /// </summary>
         /// <param name="newLevelNo"></param>

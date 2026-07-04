@@ -434,7 +434,9 @@ namespace Underworld
                                 si_slot = 7 + playerdat.handednessvalue;
                             }
                         }
-                        Debug.Print($"Equipment damage to slot {si_slot} of {Rng.DiceRoll(2, 4)}");
+                        var eqdmg = Rng.DiceRoll(2, 4);
+                        Debug.Print($"Equipment damage to slot {si_slot} of {eqdmg}");
+                        damage.DamageEquipment(si_slot, eqdmg, 0, 0, 1);
                     }
 
                     return 0;//a hit
@@ -447,9 +449,10 @@ namespace Underworld
                         {
                             if (critterObjectDat.damagesWeaponOnCritMiss(DefendingCharacter.item_id))
                             {
-                                var weaponselfdamage = Rng.DiceRoll(2, 3);
                                 var si_slot = 8 - playerdat.handednessvalue;
-                                Debug.Print($"Equipment damage to slot {si_slot} of {Rng.DiceRoll(2, 3)}");
+                                var weaponselfdamage = Rng.DiceRoll(2, 3);
+                                Debug.Print($"Equipment damage to slot {si_slot} of {weaponselfdamage}");
+                                damage.DamageEquipment(si_slot, weaponselfdamage, 0, 0, 1);
                             }
                         }
 

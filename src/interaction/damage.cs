@@ -9,9 +9,29 @@ namespace Underworld
     {
         public static void DamagePlayer(int basedamage, int damagetype, int damagesource)
         {
-            Debug.Print("TODO further implement this");
+            if (DebugConsole.GodMode) { return; } // god mode blocks all damage
+
             ScaleDamage(playerdat.playerObject.item_id, ref basedamage, damagetype);
             playerdat.playerObject.ProjectileSourceID = (short)damagesource;
+
+            // Apply difficulty scaling: easy mode halves damage
+            if (playerdat.difficuly == 1)
+            {
+                basedamage >>= 1;
+            }
+
+            if (basedamage > 0)
+            {
+                // Visual feedback: screen flash on taking damage
+                uimanager.FlashColour(0x14, uimanager.Cuts3DWin, 0.08f);
+
+                // Screen shake proportional to damage
+                int shakeIntensity = Math.Min(basedamage / 4, 3);
+                if (shakeIntensity > 0)
+                {
+                    motion.SetScreenShake(TypeOfShake: 0, duration: (byte)(shakeIntensity * 2));
+                }
+            }
 
             if (basedamage < playerdat.play_hp)
             {
@@ -21,6 +41,8 @@ namespace Underworld
             {
                 playerdat.play_hp = 0;
             }
+
+            Debug.Print($"Player takes {basedamage} damage (type:{damagetype} src:{damagesource}). HP={playerdat.play_hp}/{playerdat.max_hp}");
         }
 
         /// <summary>

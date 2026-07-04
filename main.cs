@@ -293,6 +293,12 @@ public partial class main : Node3D
 
 		if ((uimanager.InGame) && (!uimanager.blockinput))
 		{
+			// Decrement spell cooldown timer
+			if (RunicMagic.SpellCooldownTimer > 0)
+			{
+				RunicMagic.SpellCooldownTimer -= delta;
+			}
+
 			combat.CombatInputHandler(delta);//may need to be moved outside this block
 			playerdat.PlayerTimedLoop(delta);
 			RefreshWorldState();//handles teleports, tile redraws	
@@ -653,6 +659,46 @@ public partial class main : Node3D
 
 	public override void _Input(InputEvent @event)
 	{
+		// Debug console toggle and input handling
+		if (@event is InputEventKey consoleKey && consoleKey.Pressed)
+		{
+			if (consoleKey.Keycode == Key.Quoteleft) // backtick (`) key
+			{
+				DebugConsole.Toggle();
+				GetViewport().SetInputAsHandled();
+				return;
+			}
+			if (DebugConsole.IsActive)
+			{
+				switch (consoleKey.Keycode)
+				{
+					case Key.Enter:
+						DebugConsole.Submit();
+						break;
+					case Key.Escape:
+						DebugConsole.Toggle(); // close console
+						break;
+					case Key.Backspace:
+						DebugConsole.Backspace();
+						break;
+					case Key.Up:
+						DebugConsole.NavigateHistory(-1);
+						break;
+					case Key.Down:
+						DebugConsole.NavigateHistory(1);
+						break;
+					default:
+						if (consoleKey.Unicode > 0 && consoleKey.Unicode != '`')
+						{
+							DebugConsole.AppendChar((char)consoleKey.Unicode);
+						}
+						break;
+				}
+				GetViewport().SetInputAsHandled();
+				return; // consume all input while console is active
+			}
+		}
+
 		if ((@event is InputEventMouseButton eventMouseButton)
 			&&
 			((eventMouseButton.ButtonIndex == MouseButton.Left) || (eventMouseButton.ButtonIndex == MouseButton.Right)))
