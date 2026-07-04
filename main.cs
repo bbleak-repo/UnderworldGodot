@@ -979,8 +979,10 @@ public partial class main : Node3D
 								break;
 							}
 
-						default://TODO: Default is too broad. must exclude special chars
+						default:
 							{
+								// Only accept printable ASCII characters for map notes
+								if (keyinput.Unicode < 0x20 || keyinput.Unicode > 0x7E) break;
 								var text = uimanager.currentmapnote.notetext;
 								if (text.Length < 0x30)//allowing space for \0 ending.
 								{

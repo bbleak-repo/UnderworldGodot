@@ -141,7 +141,7 @@ namespace Underworld
                 projectile.tileX = MotionParams.x_0 >> 8;
                 projectile.tileY = MotionParams.y_2 >> 8;
                 tileVar6 = UWTileMap.current_tilemap.Tiles[projectile.tileX, projectile.tileY];//the new tile
-                projectile.next = tileVar6.indexObjectList;//TODO. Make sure .next does not already have a value!
+                projectile.next = tileVar6.indexObjectList; // head-insert into new tile's object list
                 tileVar6.indexObjectList = projectile.index;
 
                 //Set zpos now as pressure triggers need this info.
