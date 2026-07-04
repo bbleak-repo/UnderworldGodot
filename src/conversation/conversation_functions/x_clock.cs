@@ -17,8 +17,9 @@ namespace Underworld
             else
             {
                 if (xnumber==0)
-                {//set gameclock
-                    Debug.Print($"Unimplemented x_clock({xnumber},{xvalue}) Possibly advance time by variable value");
+                {//advance gameclock by xvalue units
+                    Debug.Print($"x_clock: advancing game clock by {xvalue}");
+                    playerdat.ClockValue += xvalue * 0x3BC4; // advance by xvalue game-time units
                 }
                 else
                 {

@@ -338,7 +338,7 @@ namespace Underworld
                     if (gamevarvalue == owner)
                     {
                         TeleportToTopOfPyramid();
-                        //TODO handle hiding moongates that may already be there.
+                        HideMoonGateAndTrigger(); // hide any existing moongate before showing new one
                         return;
                     }
                     si++;
