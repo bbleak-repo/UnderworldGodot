@@ -88,8 +88,24 @@ namespace Underworld
             //find and close doors while sleeping
             scd.FindAndCloseDoors(arg0_isPlayer: false);
 
-            //TODO Cull objects.
-            Debug.Print("TODO cull objects while sleeping");
+            // Snap objects to floor heights (prevents drift over long play sessions)
+            if (UWTileMap.current_tilemap != null)
+            {
+                for (int i = 2; i < 1024; i++)
+                {
+                    var obj = UWTileMap.current_tilemap.LevelObjects[i];
+                    if (obj != null && obj.item_id != 0
+                        && UWTileMap.ValidTile(obj.tileX, obj.tileY))
+                    {
+                        var tile = UWTileMap.current_tilemap.Tiles[obj.tileX, obj.tileY];
+                        int floorZ = tile.floorHeight << 3;
+                        if (obj.zpos < floorZ)
+                        {
+                            obj.zpos = (short)floorZ;
+                        }
+                    }
+                }
+            }
 
             var si_hourstosleep = 2 + Rng.r.Next(5);
 
