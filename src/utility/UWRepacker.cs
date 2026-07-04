@@ -3,8 +3,10 @@ using System.Diagnostics;
 namespace Underworld
 {
     /// <summary>
-    /// For repacking of UW2 ark files
-    /// Untested. WIP Code that will probably crash
+    /// For repacking of UW2 ark files using LZSS compression.
+    /// WIP code ported from the DOS disassembly. The binary tree search
+    /// can infinite-loop on corrupt tree state (safety limit added).
+    /// Not currently on the save path -- UW2 saves use uncompressed blocks.
     /// </summary>
     public class Repacker : Loader
     {
@@ -510,8 +512,10 @@ namespace Underworld
             setAt16(ArkWorkData, ArkWorkDataPtr + 0x1025 + (cx * 2), 0x1000);
             setAt16(ArkWorkData, ArkWorkDataPtr + 0x3027 + (cx * 2), 0x1000);
             setAt16(ArkWorkData, ArkWorkDataPtr + 0x10, 0);
+            int _safetyLimit = 0; // prevent infinite tree traversal
 
         ovr127_5A:
+            if (++_safetyLimit > 0x2000) { return; } // bail if tree is corrupt
             if (var2 < 0)
             {
                 //ovr127_A5

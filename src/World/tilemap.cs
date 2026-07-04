@@ -886,66 +886,32 @@ namespace Underworld
                 }
             }
 
-            //int j;
-            //Now lets combine the solids along particular axis
-            // for (x = 0; x < TileMapSizeX; x++)
-            // {
-            //     for (y = 0; y < TileMapSizeY; y++)
-            //     {
-            //         if ((Tiles[x, y].Grouped == false))
-            //         {
-            //             j = 1;
-            //             while ((Tiles[x, y].Render == true) && (Tiles[x, y + j].Render == true) && (Tiles[x, y + j].Grouped == false))      //&& (Tiles[x,y].tileType ==0) && (Tiles[x,y+j].tileType ==0)
-            //             {
-            //                 //combine these two if they match and they are not already part of a group
-            //                 if (DoTilesMatch(Tiles[x, y], Tiles[x, y + j]))
-            //                 {
-            //                     Tiles[x, y + j].Render = false;
-            //                     Tiles[x, y + j].Grouped = true;
-            //                     Tiles[x, y].Grouped = true;
-            //                     //Tiles[x,y].DimY++;
-            //                     j++;
-            //                 }
-            //                 else
-            //                 {
-            //                     break;
-            //                 }
-
-            //             }
-            //             Tiles[x, y].DimY = (short)(Tiles[x, y].DimY + j - 1);
-            //         }
-            //     }
-            // }
-
-            ////Now lets combine solids along the other axis
-            // for (y = 0; y < TileMapSizeY; y++)
-            // {
-            //     for (x = 0; x < TileMapSizeX; x++)
-            //     {
-            //         if ((Tiles[x, y].Grouped == false))
-            //         {
-            //             j = 1;
-            //             while ((Tiles[x, y].Render == true) && (Tiles[x + j, y].Render == true) && (Tiles[x + j, y].Grouped == false))      //&& (Tiles[x,y].tileType ==0) && (Tiles[x,y+j].tileType ==0)
-            //             {
-            //                 //combine these two if they  match and they are not already part of a group
-            //                 if (DoTilesMatch(Tiles[x, y], Tiles[x + j, y]))
-            //                 {
-            //                     Tiles[x + j, y].Render = false;
-            //                     Tiles[x + j, y].Grouped = true;
-            //                     Tiles[x, y].Grouped = true;
-            //                     //Tiles[x,y].DimY++;
-            //                     j++;
-            //                 }
-            //                 else
-            //                 {
-            //                     break;
-            //                 }
-
-            //             }
-            //             Tiles[x, y].DimX = (short)(Tiles[x, y].DimX + j - 1);
-            //         }
-            //     }
-            // }
+            // Combine adjacent matching solid tiles along the X axis to reduce draw calls.
+            // Each "parent" tile gets DimX increased; children get Render=false.
+            for (y = 0; y <= TileMapSizeY; y++)
+            {
+                for (x = 0; x <= TileMapSizeX; x++)
+                {
+                    if (Tiles[x, y].Render && !Tiles[x, y].Grouped && Tiles[x, y].tileType == TILE_SOLID)
+                    {
+                        int j = 1;
+                        while (x + j <= TileMapSizeX
+                            && Tiles[x + j, y].Render
+                            && !Tiles[x + j, y].Grouped
+                            && Tiles[x + j, y].tileType == TILE_SOLID
+                            && !Tiles[x + j, y].TerrainChange
+                            && !Tiles[x, y].TerrainChange
+                            && Tiles[x + j, y].wallTexture == Tiles[x, y].wallTexture)
+                        {
+                            Tiles[x + j, y].Render = false;
+                            Tiles[x + j, y].Grouped = true;
+                            Tiles[x, y].Grouped = true;
+                            j++;
+                        }
+                        Tiles[x, y].DimX = (short)j;
+                    }
+                }
+            }
 
             //Clear invisible faces on solid tiles. 
             //TODO:Support all 64x64 tiles
