@@ -11,17 +11,30 @@ namespace Underworld
         /// Waits until further input before clearing the cam.
         /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// True while camera trap is showing a remote view. Unlike WaitingForMore,
+        /// this does NOT set blockinput, so NPCs continue to move and the game
+        /// world keeps updating during the camera view.
+        /// </summary>
+        public static bool CameraViewActive = false;
+
         static IEnumerator CameraWaitForInput()
         {
             playerdat.CameraReference = null;//switch to the do trap
             playerdat.PositionPlayerCamera();
             bool automap = playerdat.AutomapEnabled;
             playerdat.AutomapEnabled = false;
-            MessageDisplay.WaitingForMore = true; //quick hack to block input
+
+            // Use our own flag instead of WaitingForMore so the game loop
+            // keeps running (NPCs move, physics update) during camera views.
+            CameraViewActive = true;
+            MessageDisplay.WaitingForMore = true; // still needed to catch the keypress that dismisses it
             while (MessageDisplay.WaitingForMore)
             {
-                yield return new WaitOneFrame();//TODO when using waiting for more the gameworld pauses. I need to update this so that npcs still move while viewing the camera.                
+                yield return new WaitOneFrame();
             }
+            CameraViewActive = false;
+
             playerdat.AutomapEnabled = automap;
             playerdat.CameraReference = playerdat.playerObject;
             playerdat.PositionPlayerCamera();

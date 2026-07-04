@@ -77,7 +77,7 @@ namespace Underworld
 			 ||
 			 MessageDisplay.WaitingForTypedInput
 			 ||
-			 MessageDisplay.WaitingForMore
+			 (MessageDisplay.WaitingForMore && !a_do_trap_camera.CameraViewActive)
 			 ||
 			 MessageDisplay.WaitingForYesOrNo
 			 ||

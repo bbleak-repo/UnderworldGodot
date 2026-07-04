@@ -281,9 +281,17 @@ namespace Underworld
 			// Validate the clicked line index
 			if (clickedLine >= 0 && clickedLine < MessageScroll.GetLineCount())
 			{
+				// Return the option number stored with the line (set during
+				// conversation option display) rather than the raw line index.
+				// This ensures clicks map to the correct dialogue option even
+				// after lines have scrolled.
+				if (clickedLine < scroll.Lines.Length && scroll.Lines[clickedLine].OptionNo > 0)
+				{
+					GD.Print($"Clicked option: {scroll.Lines[clickedLine].OptionNo}");
+					return scroll.Lines[clickedLine].OptionNo;
+				}
 				GD.Print($"Clicked line: {clickedLine + 1}");
 				return clickedLine + 1;
-
 			}
 			else
 			{
