@@ -328,7 +328,16 @@ namespace Underworld
                 }
                 else
                 {
-                    //TODO handle open doors getting destroyed.
+                    // Open door destroyed: remove it from the world and spawn debris
+                    if (WorldObject)
+                    {
+                        ObjectRemover_OLD.DeleteObjectFromTile_DEPRECIATED(
+                            tileX: objToDestroy.tileX,
+                            tileY: objToDestroy.tileY,
+                            indexToDelete: objToDestroy.index,
+                            RemoveFromWorld: true);
+                    }
+                    return 1;
                 }
             }
             switch (objToDestroy.item_id)

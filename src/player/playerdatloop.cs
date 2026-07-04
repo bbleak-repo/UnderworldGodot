@@ -1061,7 +1061,27 @@ namespace Underworld
                         }
                         else
                         {
-                            Debug.Print("unimplemented easymove footstep sounds.");
+                            // Easy-move footstep sounds: same effects as normal walking
+                            // but at a fixed moderate pace
+                            if (main.GlobalPITTimer > FootStepTimerA_19DF)
+                            {
+                                if (_RES == GAME_UW2)
+                                {
+                                    UWsoundeffects.PlaySoundEffectAtAvatar(
+                                        effectno: FootStepSoundEffectsUW2[FootstepSoundIndex_dseg_79B + (OnSnowOrIce << 1)],
+                                        pan: FootstepSoundPanning[FootstepSoundIndex_dseg_79B],
+                                        velocityOffset: 0x18);
+                                }
+                                else
+                                {
+                                    UWsoundeffects.PlaySoundEffectAtAvatar(
+                                        effectno: (byte)(FootstepSoundIndex_dseg_79B == 0 ? 2 : 1),
+                                        pan: (byte)(FootstepSoundIndex_dseg_79B == 0 ? 0x38 : 0x48),
+                                        velocityOffset: 0x18);
+                                }
+                                FootstepSoundIndex_dseg_79B = (uint)motion.SBB((int)FootstepSoundIndex_dseg_79B);
+                                FootStepTimerA_19DF = (uint)(main.GlobalPITTimer + 0x90); // fixed moderate pace
+                            }
                         }
                     }
                 }
