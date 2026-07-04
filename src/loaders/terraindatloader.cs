@@ -23,7 +23,8 @@ namespace Underworld
             Lava = 0x20,
             Waterfall = 0x40,
             Ice_wall = 0xC0,
-            Ice_walls,
+            Ice_floor = 0xD8,
+            Ice_walls = 0xE8,
             Lavafall = 0x80,
             IceNonSlip = 0xF8,
             WaterFlowSouth = 72,
@@ -48,9 +49,8 @@ namespace Underworld
         public const int Lava = 0x20;//(not lavafall)
         public const int Waterfall = 0x40;//     - UW2
         public const int Ice_wall = 0xC0; //     - UW2
-                                          //TODO:ID more water types
-                                          //00D8
-        public const int Ice_walls = 0xE8;// (crumbling?)
+        public const int Ice_floor = 0xD8; //  - UW2 (slippery ice floor)
+        public const int Ice_walls = 0xE8;// (crumbling?) - UW2
         public const int Lavafall = 0x80;   //  - UW2
         public const int IceNonSlip = 0xF8; //   - UW2
 
@@ -142,6 +142,7 @@ namespace Underworld
                 case Lava: return TerrainTypes.Lava;
                 case Waterfall: return TerrainTypes.Waterfall;
                 case Ice_wall: return TerrainTypes.Ice_wall;
+                case Ice_floor: return TerrainTypes.Ice_floor;
                 case Ice_walls: return TerrainTypes.Ice_walls;
                 case Lavafall: return TerrainTypes.Lavafall;
                 case IceNonSlip: return TerrainTypes.IceNonSlip;
