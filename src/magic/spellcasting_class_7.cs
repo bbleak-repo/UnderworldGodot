@@ -445,7 +445,15 @@ namespace Underworld
 
         public static bool SmiteUndeadObject(uwObject obj)
         {
-            Debug.Print("Smite undead object. unimplemented!");
+            // Destroy the undead object (skulls, bone piles, etc.) with a damage effect
+            damage.DamageObject(
+                objToDamage: obj,
+                basedamage: 127, // overwhelming holy damage
+                damagetype: 8,   // magic damage type
+                objList: UWTileMap.current_tilemap.LevelObjects,
+                WorldObject: true,
+                damagesource: 1); // player
+            uimanager.AddToMessageScroll("The undead essence is destroyed.");
             return true;
         }
 
